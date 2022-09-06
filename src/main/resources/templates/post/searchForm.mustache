@@ -1,0 +1,58 @@
+{{>layout/header}}
+
+<h1>
+    <center>게시글 조회</center>
+</h1>
+<br>
+<br>
+<br>
+<br>
+
+
+<div class="col-md-12">
+    <div class="row">
+        <div class="col-md-6">
+        <a href="/post/new" role="button" class="btn btn-primary">글 등록</a>
+        </div>
+    </div>
+    <br>
+        <!-- 목록 출력 영역 -->
+        <table class="table table-horizontal table-bordered">
+            <thead class="thread-strong">
+            <tr>
+                <th>번호</th>
+                <th>제목</th>
+                <th>작성자</th>
+                <th>등록일</th>
+                <th>조회수</th>
+            </tr>
+            </thead>
+            <tbody id="tbody">
+            {{#searchList}}
+                <tr>
+                    <td>{{id}}</td>
+                    <td><a href="/post/list/{{id}}"> {{title}}</a></td>
+                    <td>{{userName}}</td>
+                    <td>{{updateDate}}</td>
+                    <td>{{count}}</td>
+                </tr>
+            {{/searchList}}
+            </tbody>
+        </table>
+    <div class="pagination justify-content-center">
+        {{#checkSearchPrev}}
+            <li class="page-item"><a class="page-link" href="/post/search?keyword={{keyword}}&page={{previous}}">👈</li></a>
+        {{/checkSearchPrev}}
+        {{^checkSearchPrev}}
+            <li class="page-item disabled"><a class="page-link" href="/post/search?keyword={{keyword}}&page={{previous}}">👈</li></a>
+        {{/checkSearchPrev}}
+        {{#checkSearchNext}}
+            <li class="page-item"><a class="page-link" href="/post/search?keyword={{keyword}}&page={{next}}">👉</li></a>
+        {{/checkSearchNext}}
+        {{^checkSearchNext}}
+            <li class="page-item disabled"><a class="page-link" href="/post/search?keyword={{keyword}}&page={{next}}">👉</li></a>
+        {{/checkSearchNext}}
+    </div>
+    <a href="/" role="button" class="btn btn-secondary">이전</a>
+</div>
+{{>layout/footer}}

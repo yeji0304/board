@@ -1,0 +1,83 @@
+{{>layout/header}}
+
+<br>
+<br>
+<h1>
+    <left>자유게시판</left>
+</h1>
+<br>
+<br>
+<br>
+<br>
+
+<div class="col-md-12">
+    <div class="row">
+        <div class="col-md-6">
+
+            {{#userName}}
+                <a href="/post/new" role="button" class="btn btn-primary">글 등록</a>
+                Logged in as: <span id="user">{{userName}}</span>
+                <a href="/logout" class="btn btn-info active" role="button">Logout</a>
+            {{/userName}}
+            {{^userName}}
+                <a href="/oauth2/authorization/naver" class="btn btn-success active" role="button">Naver Login</a>
+                <a href="/oauth2/authorization/google" class="btn btn-secondary active" role="button">Google Login</a>
+                <a href="/join" role="button" class="btn btn-info">회원가입</a>
+            {{/userName}}
+
+        </div>
+    </div>
+
+    <br>
+    <!-- 목록 출력 영역 -->
+    <table class="table table-horizontal table-bordered">
+        <thead class="thread-strong">
+        <tr>
+            <th>게시글번호</th>
+            <th>제목</th>
+            <th>작성자</th>
+            <th>등록일</th>
+            <th>조회수</th>
+        </tr>
+        </thead>
+        <tbody id="tbody">
+        {{#postList}}
+            <tr>
+                <td>{{id}}</td>
+                <td><a href="/post/list/{{id}}"> {{title}}</a></td>
+                <td>{{userName}}</td>
+                <td>{{updateDate}}</td>
+                <td>{{count}}</td>
+            </tr>
+        {{/postList}}
+        </tbody>
+    </table>
+
+    <div class="pagination justify-content-center">
+        <form action="/post/search" method="GET" class="form-inline" role="search">
+            <input type="text" name="keyword" class="form-control" id="search" placeholder="검색">
+            &nbsp; <button class="btn btn-success">😀</button>
+        </form>
+    </div>
+
+    <br>
+    <br>
+    <br>
+    <div class="pagination justify-content-center">
+        {{#checkPrev}}
+            <li class="page-item"><a class="page-link" href="?page={{previous}}">👈</li></a>
+        {{/checkPrev}}
+        {{^checkPrev}}
+            <li class="page-item disabled"><a class="page-link" href="?page={{previous}}">👈</li></a>
+        {{/checkPrev}}
+        {{#checkNext}}
+            <li class="page-item"><a class="page-link" href="?page={{next}}">👉</li></a>
+        {{/checkNext}}
+        {{^checkNext}}
+            <li class="page-item disabled"><a class="page-link" href="?page={{next}}">👉</li></a>
+        {{/checkNext}}
+    </div>
+
+</div>
+
+{{>layout/footer}}
